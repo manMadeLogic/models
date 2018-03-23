@@ -54,13 +54,13 @@ def percent_unique_ngrams_in_train(train_ngrams_dict, gen_ngrams_dict):
   # *Total* number of n-grams produced by the generator.
   total_ngrams_produced = 0
 
-  for _, value in gen_ngrams_dict.iteritems():
+  for _, value in gen_ngrams_dict.items():
     total_ngrams_produced += value
 
   # The unique ngrams in the training set.
   unique_ngrams_in_train = 0.
 
-  for key, _ in gen_ngrams_dict.iteritems():
+  for key, _ in gen_ngrams_dict.items():
     if key in train_ngrams_dict:
       unique_ngrams_in_train += 1
   return float(unique_ngrams_in_train) / float(total_ngrams_produced)

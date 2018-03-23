@@ -269,7 +269,7 @@ def main(_):
   elif FLAGS.data_set == 'imdb':
     word_to_id = imdb_loader.build_vocab(
         os.path.join(FLAGS.data_dir, 'vocab.txt'))
-  id_to_word = {v: k for k, v in word_to_id.iteritems()}
+  id_to_word = {v: k for k, v in word_to_id.items()}
 
   FLAGS.vocab_size = len(id_to_word)
   print('Vocab size: %d' % FLAGS.vocab_size)

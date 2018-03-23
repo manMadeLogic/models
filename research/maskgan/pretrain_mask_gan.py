@@ -94,7 +94,7 @@ def pretrain_generator(sv, sess, model, data, log, id_to_word,
         sv.SummaryComputed(sess, summary_str)
 
         # Additional summary.
-        for n, data_ngram_count in data_ngram_counts.iteritems():
+        for n, data_ngram_count in data_ngram_counts.items():
           avg_percent_captured = evaluation_utils.sequence_ngram_evaluation(
               sess, model.fake_sequence, log, pretrain_feed, data_ngram_count,
               int(n))
@@ -119,7 +119,7 @@ def pretrain_generator(sv, sess, model, data, log, id_to_word,
         log.write(' generator loss: %.3f\n' % np.mean(losses))
         log.write(' perplexity: %.3f\n' % perplexity)
 
-        for n, data_ngram_count in data_ngram_counts.iteritems():
+        for n, data_ngram_count in data_ngram_counts.items():
           avg_percent_captured = evaluation_utils.sequence_ngram_evaluation(
               sess, model.fake_sequence, log, pretrain_feed, data_ngram_count,
               int(n))
@@ -188,7 +188,7 @@ def pretrain_discriminator(sv, sess, model, data, log, id_to_word,
         sv.SummaryComputed(sess, summary_str)
 
         # Additional summary.
-        for n, data_ngram_count in data_ngram_counts.iteritems():
+        for n, data_ngram_count in data_ngram_counts.items():
           avg_percent_captured = evaluation_utils.sequence_ngram_evaluation(
               sess, model.fake_sequence, log, pretrain_feed, data_ngram_count,
               int(n))
@@ -213,7 +213,7 @@ def pretrain_discriminator(sv, sess, model, data, log, id_to_word,
         log.write(' discriminator loss: %.3f\n' % dis_loss_eval)
         log.write(' perplexity: %.3f\n' % perplexity)
 
-        for n, data_ngram_count in data_ngram_counts.iteritems():
+        for n, data_ngram_count in data_ngram_counts.items():
           avg_percent_captured = evaluation_utils.sequence_ngram_evaluation(
               sess, model.fake_sequence, log, pretrain_feed, data_ngram_count,
               int(n))
