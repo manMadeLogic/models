@@ -41,14 +41,15 @@ python train_mask_gan.py \
 ```
 
 3. Run MaskGAN in GAN mode. If step 2 was not run, set `maskgan_ckpt` to empty.
+
 ```bash
 python train_mask_gan.py \
- --data_dir='/tmp/ptb' \
+ --data_dir='/home/bs3065/ptb' \
  --batch_size=128 \
  --sequence_length=20 \
- --base_directory='/tmp/maskGAN' \
+ --base_directory='/home/bs3065/log_3' \
  --mask_strategy=contiguous \
- --maskgan_ckpt='/tmp/maskGAN' \
+ --maskgan_ckpt='/home/bs3065/log_attention/train/model.ckpt-19189' \
  --hparams="gen_rnn_size=650,dis_rnn_size=650,gen_num_layers=2,dis_num_layers=2,gen_learning_rate=0.000038877,gen_learning_rate_decay=1.0,gen_full_learning_rate_steps=2000000,gen_vd_keep_prob=0.33971,rl_discount_rate=0.89072,dis_learning_rate=5e-4,baseline_decay=0.99,dis_train_iterations=2,dis_pretrain_learning_rate=0.005,critic_learning_rate=5.1761e-7,dis_vd_keep_prob=0.71940" \
  --mode='TRAIN' \
  --max_steps=100000 \
@@ -65,18 +66,19 @@ python train_mask_gan.py \
 ```
 
 4. Generate samples:
+
 ```bash
 python generate_samples.py \
- --data_dir /tmp/ptb/ \
+ --data_dir '/home/bs3065/ptb' \
  --data_set=ptb \
  --batch_size=256 \
  --sequence_length=20 \
- --base_directory /tmp/imdbsample/ \
+ --base_directory '/home/bs3065/log_4' \
  --hparams="gen_rnn_size=650,dis_rnn_size=650,gen_num_layers=2,gen_vd_keep_prob=0.33971" \
  --generator_model=seq2seq_vd \
  --discriminator_model=seq2seq_vd \
  --is_present_rate=0.0 \
- --maskgan_ckpt=/tmp/maskGAN \
+ --maskgan_ckpt='/home/bs3065/log_3/train/model.ckpt-19189' \
  --seq2seq_share_embedding=True \
  --dis_share_embedding=True \
  --attention_option=luong \
@@ -89,3 +91,4 @@ python generate_samples.py \
 
 *   Liam Fedus, @liamb315 <liam.fedus@gmail.com>
 *   Andrew M. Dai, @a-dai <adai@google.com>
+
