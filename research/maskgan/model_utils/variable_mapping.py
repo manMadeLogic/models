@@ -690,22 +690,22 @@ def dis_seq2seq_vd(hparams):
   encoder_lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   encoder_lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      'dis/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   encoder_lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   encoder_lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      'dis/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   ## Attention.
@@ -723,41 +723,41 @@ def dis_seq2seq_vd(hparams):
   decoder_lstm_w_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights'
+      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel'
   ][0]
   decoder_lstm_b_0 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases'
+      'dis/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias'
   ][0]
   decoder_lstm_w_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights'
+      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel'
   ][0]
   decoder_lstm_b_1 = [
       v for v in tf.trainable_variables()
       if v.op.name ==
-      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases'
+      'dis/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias'
   ][0]
 
   # Standard variable mappings.
   variable_mapping = {
-      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
           encoder_lstm_w_0,
-      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+      'gen/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
           encoder_lstm_b_0,
-      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
           encoder_lstm_w_1,
-      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+      'gen/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
           encoder_lstm_b_1,
-      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/weights':
+      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel':
           decoder_lstm_w_0,
-      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/biases':
+      'gen/decoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias':
           decoder_lstm_b_0,
-      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/weights':
+      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel':
           decoder_lstm_w_1,
-      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/biases':
+      'gen/decoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias':
           decoder_lstm_b_1
   }
 
