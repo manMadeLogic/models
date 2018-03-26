@@ -74,6 +74,7 @@ python generate_samples.py \
  --batch_size=256 \
  --sequence_length=20 \
  --base_directory '/home/bs3065/log_4' \
+ --output_path '/home/bs3065/log_4' \
  --hparams="gen_rnn_size=650,dis_rnn_size=650,gen_num_layers=2,gen_vd_keep_prob=0.33971" \
  --generator_model=seq2seq_vd \
  --discriminator_model=seq2seq_vd \

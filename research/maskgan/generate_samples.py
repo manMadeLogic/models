@@ -104,7 +104,7 @@ def write_unmasked_log(log, id_to_word, sequence_eval):
   samples = helper.convert_to_human_readable(id_to_word, indices_arr,
                                              FLAGS.batch_size)
   for sample in samples:
-    log.write(sample + '\n')
+    log.write(sample + '\n\n')
   log.flush()
   return samples
 
@@ -114,7 +114,7 @@ def write_masked_log(log, id_to_word, sequence_eval, present_eval):
   samples = convert_to_human_readable(id_to_word, indices_arr, present_eval,
                                       FLAGS.batch_size)
   for sample in samples:
-    log.write(sample + '\n')
+    log.write(sample + '\n\n')
   log.flush()
   return samples
 
@@ -126,7 +126,7 @@ def generate_logs(sess, model, log, id_to_word, feed):
   # Impute Sequences.
   [p, inputs_eval, sequence_eval] = sess.run(
       [model.present, model.inputs, model.fake_sequence], feed_dict=feed)
-
+  print(feed[model.inputs])
   # Add the 0th time-step for coherence.
   first_token = np.expand_dims(inputs_eval[:, 0], axis=1)
   sequence_eval = np.concatenate((first_token, sequence_eval), axis=1)
@@ -138,8 +138,8 @@ def generate_logs(sess, model, log, id_to_word, feed):
     samples = write_masked_log(log, id_to_word, sequence_eval, p)
   else:
     samples = write_unmasked_log(log, id_to_word, sequence_eval)
-  return samples
-
+  print("Hello World!")
+  article = write_unmasked_log(log, id_to_word, feed[model.inputs])
 
 def generate_samples(hparams, data, id_to_word, log_dir, output_file):
   """"Generate samples.
@@ -197,6 +197,7 @@ def generate_samples(hparams, data, id_to_word, log_dir, output_file):
         # print('Percent done: %.2f' % float(n) / float(FLAGS.number_epochs))
         iterator = get_iterator(data)
         for x, y, _ in iterator:
+          sample = x[0,:]
           if FLAGS.eval_language_model:
             is_present_rate = 0.
           else:
