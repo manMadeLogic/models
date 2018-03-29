@@ -69,23 +69,25 @@ python train_mask_gan.py \
 
 ```bash
 python generate_samples.py \
- --data_dir '/home/bs3065/ptb' \
+ --data_dir '/Users/Boya/Desktop/Courses/dl/ptb' \
+ --sample_mode='VALIDATION' \
  --data_set=ptb \
- --batch_size=256 \
+ --batch_size=1 \
  --sequence_length=20 \
- --base_directory '/home/bs3065/log_4' \
- --output_path '/home/bs3065/log_4' \
+ --base_directory '/Users/Boya/Desktop/Courses/dl/log_4' \
+ --output_path '/Users/Boya/Desktop/Courses/dl/log_4' \
+ --output_file 'unconditioned_reviews.txt' \
  --hparams="gen_rnn_size=650,dis_rnn_size=650,gen_num_layers=2,gen_vd_keep_prob=0.33971" \
  --generator_model=seq2seq_vd \
  --discriminator_model=seq2seq_vd \
- --is_present_rate=0.0 \
- --maskgan_ckpt='/home/bs3065/log_3/train/model.ckpt-19189' \
+ --is_present_rate=0.5 \
+ --maskgan_ckpt='/Users/Boya/Desktop/Courses/dl/log_3/train/model.ckpt-19189' \
  --seq2seq_share_embedding=True \
  --dis_share_embedding=True \
  --attention_option=luong \
  --mask_strategy=contiguous \
  --baseline_method=critic \
- --number_epochs=4
+ --number_epochs=1 \
 ```
 
 ## Contact for Issues

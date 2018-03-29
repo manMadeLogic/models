@@ -89,7 +89,7 @@ def ptb_iterator(raw_data, batch_size, num_steps, epoch_size_override=None):
   Args:
     raw_data: one of the raw data outputs from ptb_raw_data.
     batch_size: int, the batch size.
-    num_steps: int, the number of unrolls.
+    num_steps: int, the number of unrolls. sequence_size
 
   Yields:
     Pairs of the batched data, each a matrix of shape [batch_size, num_steps].
