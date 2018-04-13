@@ -125,6 +125,7 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
 
   print('raw_data', len(raw_data))
   sentences = np.split(raw_data, [EOS_INDEX])
+  print(sentences)
   sentence_len = len(sentences)
   print('sentence_len', sentence_len)
   data = np.full([sentence_len, sequence_length+1], EOS_INDEX, dtype=np.int32)
