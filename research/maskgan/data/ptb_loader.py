@@ -135,11 +135,13 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
     raise NotImplementedError
 
   epoch_size = sentence_len//batch_size
+  print(epoch_size)
   for i in range(epoch_size):
     x = data[i*batch_size:(i+1)*batch_size, :-1]
     y = data[i*batch_size:(i+1)*batch_size, 1:]
     w = np.ones_like(x)
-    print(x, y, z)
+    print("for loop")
+    print(x, y, w)
     yield (x, y, w)
 
 
