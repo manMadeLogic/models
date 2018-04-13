@@ -123,9 +123,10 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
   #   w = np.ones_like(x)
   #   yield (x, y, w)
 
-
+  print('raw_data', len(raw_data))
   sentences = np.split(raw_data, [EOS_INDEX])
   sentence_len = len(sentences)
+  print('sentence_len', sentence_len)
   data = np.full([sentence_len, sequence_length+1], EOS_INDEX, dtype=np.int32)
   for i in range(sentence_len):
     sent = sentences[i][:sequence_length+1]
@@ -135,7 +136,7 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
     raise NotImplementedError
 
   epoch_size = sentence_len//batch_size
-  print(epoch_size)
+  print('epoch_size', epoch_size)
   for i in range(epoch_size):
     x = data[i*batch_size:(i+1)*batch_size, :-1]
     y = data[i*batch_size:(i+1)*batch_size, 1:]
