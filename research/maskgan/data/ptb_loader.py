@@ -101,39 +101,17 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
     ValueError: if batch_size or num_steps are too high.
   """
   raw_data = np.array(raw_data, dtype=np.int32)
-
-  # data_len = len(raw_data)
-  # batch_len = data_len // batch_size
-  # data = np.full([batch_size, batch_len], EOS_INDEX, dtype=np.int32)
-  # for i in range(batch_size):
-  #   data[i] = raw_data[batch_len * i:batch_len * (i + 1)]
-  #
-  # if epoch_size_override:
-  #   epoch_size = epoch_size_override
-  # else:
-  #   epoch_size = (batch_len - 1) // sequence_length
-  #
-  # if epoch_size == 0:
-  #   raise ValueError("epoch_size == 0, decrease batch_size or num_steps")
-
-  # print("Number of batches per epoch: %d" % epoch_size)
-  # for i in range(epoch_size):
-  #   x = data[:, i * sequence_length:(i + 1) * sequence_length]
-  #   y = data[:, i * sequence_length + 1:(i + 1) * sequence_length + 1]
-  #   w = np.ones_like(x)
-  #   yield (x, y, w)
-
   # print('raw_data', len(raw_data))
   sentences = np.split(raw_data, np.where(raw_data == EOS_INDEX)[0] + 1)
   # print(raw_data)
   # print(EOS_INDEX)
-  # print(sentences)
+  print(sentences)
   sentence_len = len(sentences)
   print('sentence_len', sentence_len)
   data = np.full([sentence_len, sequence_length+1], EOS_INDEX, dtype=np.int32)
   for i in range(sentence_len):
     sent = sentences[i][:sequence_length+1]
-    data[i][:len(sent)] = sent
+    data[i][:] = sent
 
   if epoch_size_override:
     raise NotImplementedError
@@ -144,7 +122,7 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
     x = data[i*batch_size:(i+1)*batch_size, :-1]
     y = data[i*batch_size:(i+1)*batch_size, 1:]
     w = np.ones_like(x)
-    print("for loop")
+    # print("for loop")
     print(x, y, w)
     yield (x, y, w)
 
