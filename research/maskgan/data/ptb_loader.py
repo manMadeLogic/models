@@ -124,7 +124,7 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
   #   yield (x, y, w)
 
   print('raw_data', len(raw_data))
-  sentences = np.split(raw_data, [EOS_INDEX])
+  sentences = np.split(raw_data, np.where(raw_data == EOS_INDEX))
   print(raw_data)
   print(EOS_INDEX)
   print(sentences)
