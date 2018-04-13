@@ -139,6 +139,7 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
     x = data[i*batch_size:(i+1)*batch_size, :-1]
     y = data[i*batch_size:(i+1)*batch_size, 1:]
     w = np.ones_like(x)
+    print(x, y, z)
     yield (x, y, w)
 
 
