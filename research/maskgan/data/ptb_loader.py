@@ -101,24 +101,42 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
   """
   raw_data = np.array(raw_data, dtype=np.int32)
 
-  data_len = len(raw_data)
-  batch_len = data_len // batch_size
-  data = np.full([batch_size, batch_len], EOS_INDEX, dtype=np.int32)
-  for i in range(batch_size):
-    data[i] = raw_data[batch_len * i:batch_len * (i + 1)]
-
-  if epoch_size_override:
-    epoch_size = epoch_size_override
-  else:
-    epoch_size = (batch_len - 1) // sequence_length
-
-  if epoch_size == 0:
-    raise ValueError("epoch_size == 0, decrease batch_size or num_steps")
+  # data_len = len(raw_data)
+  # batch_len = data_len // batch_size
+  # data = np.full([batch_size, batch_len], EOS_INDEX, dtype=np.int32)
+  # for i in range(batch_size):
+  #   data[i] = raw_data[batch_len * i:batch_len * (i + 1)]
+  #
+  # if epoch_size_override:
+  #   epoch_size = epoch_size_override
+  # else:
+  #   epoch_size = (batch_len - 1) // sequence_length
+  #
+  # if epoch_size == 0:
+  #   raise ValueError("epoch_size == 0, decrease batch_size or num_steps")
 
   # print("Number of batches per epoch: %d" % epoch_size)
+  # for i in range(epoch_size):
+  #   x = data[:, i * sequence_length:(i + 1) * sequence_length]
+  #   y = data[:, i * sequence_length + 1:(i + 1) * sequence_length + 1]
+  #   w = np.ones_like(x)
+  #   yield (x, y, w)
+
+
+  sentences = np.split(raw_data, [EOS_INDEX])
+  sentence_len = len(sentences)
+  data = np.full([sentence_len, sequence_length+1], EOS_INDEX, dtype=np.int32)
+  for i in range(sentence_len):
+    sent = sentences[i][:sequence_length+1]
+    data[i][:len(sent)] = sent
+
+  if epoch_size_override:
+    raise NotImplementedError
+
+  epoch_size = sentence_len//batch_size
   for i in range(epoch_size):
-    x = data[:, i * sequence_length:(i + 1) * sequence_length]
-    y = data[:, i * sequence_length + 1:(i + 1) * sequence_length + 1]
+    x = data[i*batch_size:(i+1)*batch_size, :-1]
+    y = data[i*batch_size:(i+1)*batch_size, 1:]
     w = np.ones_like(x)
     yield (x, y, w)
 
@@ -126,8 +144,10 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
 if __name__ == '__main__':
   path = '/Users/xi/Downloads/ptb/'
   # path = '/home/chenxi410402/tmp/ptb'
-  raw_data = ptb_raw_data(path)
+  train_data, valid_data, test_data, vocabulary = ptb_raw_data(path)
   # word_to_id = build_vocab()
-  iterator = ptb_iterator(raw_data, 10, 20)
+  iterator = ptb_iterator(train_data, 10, 20)
   for x, y, _ in iterator:
     print(x)
+    print(y)
+    break
