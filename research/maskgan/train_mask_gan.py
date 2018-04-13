@@ -612,6 +612,8 @@ def train_model(hparams, data, log_dir, log, id_to_word, data_ngram_counts):
 
                         for i in range(dis_offset):
                             try:
+                                myresult = next(dis_iterator)
+                                print(myresult)
                                 dis_x, dis_y, _ = next(dis_iterator)
                             except StopIteration:
                                 dis_iterator = get_iterator(data)
