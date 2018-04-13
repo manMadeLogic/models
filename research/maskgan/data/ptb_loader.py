@@ -36,7 +36,7 @@ def _read_words(filename):
 
 def build_vocab(filename):
   data = _read_words(filename)
-  # print(data)
+  print(data)
 
   counter = collections.Counter(data)
   count_pairs = sorted(counter.items(), key=lambda x: (-x[1], x[0]))
