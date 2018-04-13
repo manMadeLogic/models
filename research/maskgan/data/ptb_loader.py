@@ -36,7 +36,7 @@ def _read_words(filename):
 
 def build_vocab(filename):
   data = _read_words(filename)
-  print(data)
+  # print(data)
 
   counter = collections.Counter(data)
   count_pairs = sorted(counter.items(), key=lambda x: (-x[1], x[0]))
@@ -125,6 +125,8 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
 
   print('raw_data', len(raw_data))
   sentences = np.split(raw_data, [EOS_INDEX])
+  print(raw_data)
+  print(EOS_INDEX)
   print(sentences)
   sentence_len = len(sentences)
   print('sentence_len', sentence_len)
