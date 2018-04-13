@@ -36,6 +36,7 @@ def _read_words(filename):
 
 def build_vocab(filename):
   data = _read_words(filename)
+  print(data)
 
   counter = collections.Counter(data)
   count_pairs = sorted(counter.items(), key=lambda x: (-x[1], x[0]))
@@ -141,13 +142,18 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
     yield (x, y, w)
 
 
+
 if __name__ == '__main__':
-  path = '/Users/xi/Downloads/ptb/'
+#   data_path = '/home/chenxi410402/tmp/ptb'
+  data_path = '/Users/xi/Downloads/ptb/'
+  train_path = os.path.join(data_path, "ptb.train.txt")
+  word_to_id = build_vocab(train_path)
+
   # path = '/home/chenxi410402/tmp/ptb'
-  train_data, valid_data, test_data, vocabulary = ptb_raw_data(path)
+  # train_data, valid_data, test_data, vocabulary = ptb_raw_data(path)
   # word_to_id = build_vocab()
-  iterator = ptb_iterator(train_data, 10, 20)
-  for x, y, _ in iterator:
-    print(x)
-    print(y)
-    break
+  # iterator = ptb_iterator(train_data, 10, 20)
+  # for x, y, _ in iterator:
+  #   print(x)
+  #   print(y)
+  #   break
