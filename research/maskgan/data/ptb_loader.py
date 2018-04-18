@@ -27,11 +27,12 @@ import numpy as np
 import tensorflow as tf
 
 EOS_INDEX = 0
+PAD_INDEX = 0
 
 
 def _read_words(filename):
   with tf.gfile.GFile(filename, "r") as f:
-    return f.read().replace("\n", " <eos>").split()
+    return f.read().replace("\n", " <eos> <pad>").split()
 
 
 def build_vocab(filename):
@@ -44,8 +45,11 @@ def build_vocab(filename):
   words, _ = list(zip(*count_pairs))
   word_to_id = dict(zip(words, range(len(words))))
   print("<eos>:", word_to_id["<eos>"])
+  print("<pad>:", word_to_id["<pad>"])
   global EOS_INDEX
+  global PAD_INDEX
   EOS_INDEX = word_to_id["<eos>"]
+  PAD_INDEX = word_to_id["<pad>"]
 
   return word_to_id
 
@@ -104,12 +108,9 @@ def ptb_iterator(raw_data, batch_size, sequence_length, epoch_size_override=None
   # print('raw_data', len(raw_data))
   sentences = np.split(raw_data, np.where(raw_data == EOS_INDEX)[0] + 1)
   sentences = np.array(list(filter(lambda x: len(x)>8, sentences)))
-  # print(raw_data)
-  # print(EOS_INDEX)
-  # print(sentences)
   sentence_len = len(sentences)
   # print('sentence_len', sentence_len)
-  data = np.full([sentence_len, sequence_length+1], EOS_INDEX, dtype=np.int32)
+  data = np.full([sentence_len, sequence_length+1], PAD_INDEX, dtype=np.int32)
   for i in range(sentence_len):
     sent = sentences[i][:sequence_length+1]
     data[i][:len(sent)] = sent
